@@ -2,14 +2,18 @@ import pandas as pd
 import os
 import json
 import requests
-
 import streamlit as st
 import logging
 import folium
+
+
+# from Login import active_user
+
+from cloudwatch.logs import write_logs, write_api_success_or_failure_logs
 # from aws_nexrad import get_files_from_nexrad_bucket, get_noaa_nexrad_url, copy_s3_nexrad_file, get_my_s3_url_nex, \
 #     get_dir_from_filename_nexrad, copy_file_to_S3_and_return_my_s3_url
 # from aws_nexrad import get_dir_from_filename_nexrad, get_files_from_nexrad_bucket, get_noaa_nexrad_url
-from sql_nexrad import fetch_data_from_table_nexrad
+from sql_utils.sql_nexrad import fetch_data_from_table_nexrad
 # from aws_geos import get_files_from_noaa_bucket, get_noaa_geos_url, copy_s3_file, get_my_s3_url, \
 #     get_dir_from_filename_geos
 from streamlit_folium import folium_static
@@ -52,6 +56,8 @@ if 'login_btn' not in st.session_state:
 if 'logout_btn' not in st.session_state:
     st.session_state.logout_btn = False
 
+if 'active_user' not in st.session_state:
+    st.session_state.active_user = ""
 
 # """
 # returns values from df of selected column
@@ -159,13 +165,16 @@ def nexrad_enabled():
     if ((selected_year_nexrad != "Select Year") and (selected_month_nexrad != "Select Month") and (
             selected_day_nexrad != "Select Day") and (selected_station_nexrad != "Select station")):
 
-            url = 'http://api:8000/get_nexrad_files'
+            # url = 'http://api:8000/get_nexrad_files'
+            url = 'http://localhost:8001/get_nexrad_files'
+
             data = {
                 "year": int(selected_year_nexrad),
                 "month": selected_month_nexrad,
                 "day":selected_day_nexrad,
                 "station_code":selected_station_nexrad
             }
+            write_logs(f"accessed {url}")
             response = requests.post(url=url, json=data)
             noaa_files_list = response.json().get('files')
 
@@ -201,19 +210,24 @@ def nexrad_enabled():
 
     #through user inputs
     if get_url_btn:
+        get_nexrad_url = 'http://localhost:8001/get_nexrad_url'
         if((selected_year_nexrad != "Select Year") and (selected_month_nexrad != "Select Month") and (selected_day_nexrad != "Select Day") and (selected_station_nexrad != "Select station")):
         # if ((selected_day_nexrad != "Select Hour") and (selected_month_nexrad != "Select Day") and (selected_year_nexrad != "Select Year")):
         #     my_s3_file_url = asyncio.run(nexrad_copy_file_to_S3_and_return_my_s3_url_API(selected_file)) #------for API-----
         #     my_s3_file_url = nexrad_copy_file_to_S3_and_return_my_s3_url(selected_file)
 
-            get_nexrad_url = 'http://api:8000/get_nexrad_url'
+            # get_nexrad_url = 'http://api:8000/get_nexrad_url'
+
+
             nexrad_data = {
                 "filename_with_dir": selected_file
             }
+            write_logs(f"accessed {get_nexrad_url}")
             response = requests.post(url=get_nexrad_url, json=nexrad_data)
             my_s3_file_url = response.json().get('url')
 
             if my_s3_file_url != "":
+                write_api_success_or_failure_logs("api_success_logs", st.session_state.active_user, get_nexrad_url, "success", response.status_code)
                 st.success(f"Download link has been generated!\n [URL]({my_s3_file_url})")
                 with st.expander("Expand for URL"):
                     text2 = f"<p style='font-size: 20px; text-align: center'><span style='color: #15b090; font-weight:bold ;'>{my_s3_file_url}</span></p>"
@@ -245,15 +259,19 @@ def nexrad_enabled():
             #getting my s3 bucket url giving full file name with dir as input
             # my_s3_file_url = asyncio.run(nexrad_copy_file_to_S3_and_return_my_s3_url_API(full_file_name))  #---for API-----
             # my_s3_file_url = nexrad_copy_file_to_S3_and_return_my_s3_url(full_file_name)
-            get_nexrad_url = 'http://api:8000/get_nexrad_url'
+            # get_nexrad_url = 'http://api:8000/get_nexrad_url'
+            get_nexrad_url = 'http://localhost:8001/get_nexrad_url'
+
             nexrad_data = {
                 "filename_with_dir": full_file_name
             }
+            write_logs(f"accessed {get_nexrad_url}")
             response = requests.post(url=get_nexrad_url, json=nexrad_data)
             my_s3_file_url = response.json().get('url')
             # st.markdown(my_s3_file_url)
 
             if my_s3_file_url != None:  #checks if the file url is not empty
+                write_api_success_or_failure_logs("api_success_logs", st.session_state.active_user, get_nexrad_url, "success", response.status_code)
                 st.success(f"Download link has been generated!\n [URL]({my_s3_file_url})")
                 logging.info("Download link generated")
 
@@ -263,6 +281,8 @@ def nexrad_enabled():
                     st.markdown(f"[{text2}]({my_s3_file_url})", unsafe_allow_html=True)
                     logging.info("URL has been generated")
             else:
+                write_api_success_or_failure_logs("api_failure_logs", st.session_state.active_user, get_nexrad_url,
+                                                  "failed", "404")
                 st.error("File not found in NEXRAD Dataset, Please enter a valid filename")
 
         else:
@@ -304,6 +324,7 @@ else:
 
 
 if logout_btn:
+    active_user = ""
     st.session_state.authenticated = False
     st.success("User Logged-OUT")
     # home_page_layout(st.session_state.authenticated)

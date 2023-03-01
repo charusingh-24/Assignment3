@@ -4,8 +4,10 @@ import streamlit as st
 import os
 import json
 import requests
+
+from cloudwatch.logs import write_logs, write_api_success_or_failure_logs
 from utils_goes_API import get_dir_from_filename_geos
-from sql_goes import fetch_data_from_table_goes
+from sql_utils.sql_goes import fetch_data_from_table_goes
 
 # from aws_geos import get_dir_from_filename_geos
 
@@ -50,7 +52,8 @@ if 'valid_user_flag' not in st.session_state:
 
 if 'logout_btn' not in st.session_state:
     st.session_state.logout_btn = False
-
+if 'active_user' not in st.session_state:
+    st.session_state.active_user = ""
 def extract_values_from_df(df, key, value, col):
     # Extract the rows where key is equal to value
     filtered_df = df[df[key] == value]
@@ -139,12 +142,14 @@ def goes_enabled():
         # Takes list of files from user selected directory and showing them in selectbox
         # noaa_files_list = return_list(dir_to_check_geos) if dir_to_check_geos != "" else []
 
-        url = 'http://api:8000/get_goes_files'
+        # url = 'http://api:8000/get_goes_files'
+        url = 'http://localhost:8001/get_goes_files'
         data = {
             "year": int(selected_year_geos),
             "day": selected_day_geos,
             "hour": selected_hour_geos
         }
+        write_logs(f"accessed {url}")
         response = requests.post(url=url, json=data)
         files_list = response.json().get('files')
 
@@ -181,31 +186,25 @@ def goes_enabled():
     #using user inputs
     if get_url_btn:
         if ((selected_hour_geos != "Select Hour") and (selected_day_geos != "Select Day") and (selected_year_geos != "Select Year")):
-            get_goes_url = 'http://api:8000/get_goes_url'
+            # get_goes_url = 'http://api:8000/get_goes_url'
+            get_goes_url = 'http://localhost:8001/get_goes_url'
+
             goes_data = {
                 "filename_with_dir":selected_file
             }
+            write_logs(f"accessed {get_goes_url}")
             response = requests.post(url=get_goes_url, json=goes_data)
             my_s3_file_url = response.json().get('url')
 
             # my_s3_file_url = asyncio.run(goes_copy_file_to_S3_and_return_my_s3_url_Api(selected_file))  #-----for API--------
-            # my_s3_file_url = goes_copy_file_to_S3_and_return_my_s3_url(selected_file)
 
-            # st.markdown(my_s3_file_url)
-
-            # src_bucket = "noaa-goes18"
-            # des_bucket = "damg7245-ass1"
-            # # copying user selected file from AWS s3 bucket to our bucket
-            # copied_flag = copy_s3_file(src_bucket, selected_file, des_bucket, selected_file)
-            # # getting url of user selected file from our s3 bucket
-            # if copied_flag:
-            #     my_s3_file_url = get_my_s3_url(selected_file)
             if my_s3_file_url != "":
+                write_api_success_or_failure_logs("api_success_logs", st.session_state.active_user, get_goes_url, "success", response.status_code)
                 st.success(f"Download link has been generated!\n [URL]({my_s3_file_url})")
                 with st.expander("Expand for URL"):
                     text2 = f"<p style='font-size: 20px; text-align: center'><span style='color: #15b090; font-weight:bold ;'>{my_s3_file_url}</span></p>"
                     st.markdown(f"[{text2}]({my_s3_file_url})", unsafe_allow_html=True)
-                    logging.info("URL has been generated")
+                    write_logs("url is generated")
             else:
                 # logging.DEBUG("File not found in NOAA database")
                 st.error("File not found in NOAA database, Please enter a valid filename!")
@@ -222,35 +221,39 @@ def goes_enabled():
 
     #usign filename
     if button_url:
+        get_goes_url = 'http://localhost:8001/get_goes_url'
         if given_file_name != "":
             full_file_name = get_dir_from_filename_geos(given_file_name)
             if full_file_name != "":
-                get_goes_url = 'http://api:8000/get_goes_url'
+                # get_goes_url = 'http://api:8000/get_goes_url'
+
+
                 data = {
                     "filename_with_dir": full_file_name
                 }
+                write_logs(f"accessed {get_goes_url}")
                 response = requests.post(url=get_goes_url, json=data)
                 my_s3_file_url = response.json().get('url')
-                # my_s3_file_url = asyncio.run(goes_copy_file_to_S3_and_return_my_s3_url_Api(full_file_name))  #--------for API-------
-                # my_s3_file_url = goes_copy_file_to_S3_and_return_my_s3_url(selected_file)
-                # # copying user selected file from AWS s3 bucket to our bucket
-                # copied_flag = copy_s3_file(src_bucket, full_file_name, des_bucket, full_file_name) #returns true of copied
-                # # getting url of user selected file from our s3 bucket
-                # dir_to_check = f"ABI-L1b-RadC/{selected_year_geos}/{selected_day_geos}/{selected_hour_geos}"
-                # if copied_flag:
-                #     my_s3_file_url = get_my_s3_url( full_file_name)
                     # displaying url through expander
                 if my_s3_file_url != "":
+                    #writing to cloud watch logs
+                    write_api_success_or_failure_logs("api_success_logs", st.session_state.active_user, get_goes_url, "success",
+                                                      response.status_code)
                     st.success(f"Download link has been generated!\n [URL]({my_s3_file_url})")
                     with st.expander("Expand for URL"):
                         text2 = f"<p style='font-size: 20px; text-align: center'><span style='color: #15b090; font-weight:bold ;'>{my_s3_file_url}</span></p>"
                         st.markdown(f"[{text2}]({my_s3_file_url})", unsafe_allow_html=True)
-                        logging.info("URL has been generated")
+                        write_logs("url is generated")
+                        logging.info("URL has been generated////")
                 else:
+                    write_api_success_or_failure_logs("api_failure_logs", st.session_state.active_user, get_goes_url, "failed",
+                                                      response.status_code)
                     # logging.DEBUG("File not found in NOAA database")
                     st.error("File not found in NOAA database, Please enter a valid filename!")
 
             else:
+                write_api_success_or_failure_logs("api_failure_logs", st.session_state.active_user, get_goes_url,
+                                                  "failed","404")
                 st.error("File not found in NOAA database, Please enter a valid filename")
         else:
             st.error("Please Enter a file name")

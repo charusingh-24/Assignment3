@@ -13,6 +13,9 @@ import pandas as pd
 # from sql_credentials import verify_password
 import hashlib
 
+from Authentication import authentication
+from cloudwatch.logs import write_logs, write_Register_logs
+
 # from utils_goes_API import goes_get_my_s3_url
 # from utils_nexrad_API import nexrad_get_my_s3_url
 
@@ -44,7 +47,7 @@ def hash_text(text):
     # Return the hexadecimal hash digest
     return hex_digest
 
-def verify_password(db_password,given_password):
+def verify_password1(db_password,given_password):
     flag = 0
     if str(hash_text(given_password)) == str(db_password):
         flag = 1
@@ -141,7 +144,7 @@ def copy_s3_file_if_exists(src_bucket_name, src_file_name, dst_bucket_name, dst_
         aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
         aws_secret_access_key=os.environ.get('AWS_SECRET_KEY')
     )
-    print(os.environ.get('AWS_ACCESS_KEY'), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    # print(os.environ.get('AWS_ACCESS_KEY'), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
     s3 = session.resource('s3')
     src_bucket = s3.Bucket(src_bucket_name)
@@ -164,6 +167,7 @@ def copy_s3_file_if_exists(src_bucket_name, src_file_name, dst_bucket_name, dst_
             dst_bucket.copy(copy_source, dst_file_name)
             print(f"Object {src_file_name} copied from source bucket {src_bucket_name} to destination bucket {dst_bucket_name}.")
             #now copied so flat = 1
+            write_logs(f"Object {src_file_name} copied from source bucket {src_bucket_name} to destination bucket {dst_bucket_name}.")
             flag = 1
         else:
             st.error("No Such File")
@@ -172,12 +176,12 @@ def copy_s3_file_if_exists(src_bucket_name, src_file_name, dst_bucket_name, dst_
     return flag
 
 
-
 def copy_s3_file(src_bucket_name, src_file_name, dst_bucket_name, dst_file_name):
     session = boto3.Session(region_name="us-east-1",
         aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
         aws_secret_access_key=os.environ.get('AWS_SECRET_KEY')
     )
+
     flag = 0
 
     s3 = session.resource('s3')
@@ -193,6 +197,7 @@ def copy_s3_file(src_bucket_name, src_file_name, dst_bucket_name, dst_file_name)
     except botocore.exceptions.ClientError as e:
         st.markdown("EXCEPTION")
         if e.response['Error']['Code'] == "404":
+            write_logs(f"File {src_file_name} not found in source bucket {src_bucket_name}.")
             st.error(f"File {src_file_name} not found in source bucket {src_bucket_name}.")
             # flag = 0
             return 0
@@ -232,6 +237,7 @@ async def goes_copy_file_to_S3_and_return_my_s3_url_Api(selected_file:GoesUserIn
     if copied_flag:
         my_s3_file_url = goes_get_my_s3_url(selected_file.filename_with_dir)
     else:
+        write_logs("File not found")
         raise HTTPException(status_code=404, detail="File not found")
 
     # return {'url': my_s3_file_url}
@@ -318,15 +324,41 @@ async def return_nexrad_files_list(dir_to_check_nexrad:NexradInputs):
     return {'files':noaa_files_list}
 
 
+
+
 class CredInputs(BaseModel):
-    un:str
-    pwd:str
+    un: str
+    pwd: str
+
 @app.post("/autheticate_user")
-def verify_user(credentials:CredInputs):
+async def verify_user(credentials:CredInputs):
+    # conn = sqlite3.connect('meta.db')
+    # c = conn.cursor()
+    # tableName = "registered_user"
+    #
+    # query = f"SELECT password, email FROM {tableName}  WHERE username = '{credentials.un}'"
+    # p = c.execute(query)
+    # db_pwd = p.fetchall()[0][0]
+    # try:
+    #     p = c.execute(query)
+    #     db_pwd = p.fetchall()[0][0]
+    #     email = p.fetchall()[0][1]
+    #
+    #     # if verify_password1(db_pwd, credentials.pwd) == "true":#verify_password(credentials.pwd, db_pwd):
+    #         # return authentication.signJWT(credentials.email)
+    #         # st.markdown(f"Credentials matched --> Access Token: {authentication.signJWT(email)}")
+    #     return {"matched": verify_password1(db_pwd, credentials.pwd), 'access_token': authentication.signJWT(email)}
+    #     # else:
+    #     #     raise HTTPException(status_code=401, detail='Invalid username and/or password')
+    #
+    #     # return {"matched":verify_password(credentials.pwd, db_pwd), 'access_token': authentication.signJWT(Cred.email)}
+    # except IndexError:
+    #     return {"matched": 0, 'access_token': ""}
+
     conn = sqlite3.connect('meta.db')
     c = conn.cursor()
 
-    query = f"SELECT password FROM cred  WHERE username = '{credentials.un}'"
+    query = f"SELECT password FROM registered_user  WHERE username = '{credentials.un}'"
     # try:
     #     p = c.execute(query)
     #     db_pwd = p.fetchall()[0][0]
@@ -340,11 +372,105 @@ def verify_user(credentials:CredInputs):
     # except IndexError:
     #     return {"error": "Invalid credentials"}
     try:
-        p=c.execute(query)
+        p = c.execute(query)
         db_pwd = p.fetchall()[0][0]
-        return {"matched":verify_password(db_pwd, credentials.pwd)}
+        return {"matched": verify_password1(db_pwd, credentials.pwd)}
     except IndexError:
         return {"matched": 0}
+
+
+
+
+
+
+class RegisterInputs(BaseModel):
+    email: str
+    username: str
+    password: str
+    plan: str
+"""
+takes nexrad dir as input and returns all the files in that dir as list 
+"""
+@app.post("/register_new_user")
+async def register_user(Cred:RegisterInputs):
+    # write_Register_logs(userinputs.email, userinputs.username, userinputs.password, userinputs.plan)
+
+    # df = read_user_registered_logs()
+    # print(df)
+    # st.markdown(df)
+    # un_list = df['username'].unique()
+    # if userinputs.username in un_list:s
+    #     s = 'User already exists'
+    # else:
+    #     write_Register_logs(userinputs.email,userinputs.username,userinputs.password,userinputs.plan)
+    #     s =  'user registered successfully'
+
+    conn = sqlite3.connect('meta.db')
+    c = conn.cursor()
+    tableName = "registered_user"
+    # Insert the new user into the table
+    c.execute(f"Create TABLE IF NOT EXISTS {tableName} ({Cred.email} TEXT CHECK({Cred.email} LIKE '%@%'), {Cred.username}, {Cred.password}, {Cred.plan});")
+    # c.execute(f"INSERT INTO {tableName} (email, username, password,plan) VALUES (?, ?,?,?)", (Cred.email, Cred.username, Cred.password, Cred.plan))
+
+    c.execute(f"SELECT COUNT(*) FROM {tableName} WHERE username = ?", (Cred.username,))
+    count = c.fetchone()[0]
+
+    if count == 0:
+        c.execute(f"INSERT INTO {tableName} (email, username, password, plan) VALUES (?, ?, ?, ?)",
+                  (Cred.email, Cred.username, Cred.password, Cred.plan))
+        conn.commit()
+        conn.close()
+        return "User registered Successfully"
+    else:
+        return "Username already exists in the table."
+    # Commit the changes and close the connection
+    # write_Register_logs(Cred.email, Cred.username, Cred.password, Cred.plan)
+
+
+    #{'access_token': authentication.signJWT(Cred.email)}
+
+
+
+
+
+
+
+
+
+
+
+# class RegInputs(BaseModel):
+#     email:str
+#     un:str
+#     pwd:str
+#     plan:str
+#
+# @app.post("/register_user")
+# async def register_new_user(Cred: RegInputs):
+#     df = read_user_registered_logs()
+#     st.markdown(df)
+#     unique_usernames = df['username'].unique()
+#     if Cred.un not in unique_usernames:
+#         write_Register_logs(Cred.email,Cred.un,Cred.pwd,Cred.plan)
+#         return "User Created!"
+#     else:
+#         return "User already exists"
+#     ------------------------------
+    # Connect to the database
+    # conn = sqlite3.connect('meta.db')
+    # c = conn.cursor()
+    # tableName = "registered_user"
+    # # Insert the new user into the table
+    # c.execute(f"Create TABLE IF NOT EXISTS {tableName} ({Cred.email}, {Cred.username}, {Cred.password}, {Cred.plan});")
+    # c.execute(f"INSERT INTO {tableName} (email, username, password,plan) VALUES (?, ?,?,?)", (Cred.email, Cred.username, Cred.password, Cred.plan))
+    # print("created")
+    # # Commit the changes and close the connection
+    # conn.commit()
+    # conn.close()
+
+    # return {'access_token': authentication.signJWT(Cred.email)}
+
+
 
 # @app.get("/protected_resource")
 # def protected_resource(token: str):
@@ -355,4 +481,5 @@ def verify_user(credentials:CredInputs):
 #         # Return an error message or redirect to the login page
 #         return {"error": "Invalid or expired token"}
 #
+
 
