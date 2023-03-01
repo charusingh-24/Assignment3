@@ -1,6 +1,6 @@
 # Assignment 2 - Code Advancements to Goes-Nexrad Streamlit Application
 
-User Guide - <a href="https://codelabs-preview.appspot.com/?file_id=1NZhfr8-otPaV6pyxBA2UvcESKmiMBFuhEO0d2omQReI#9">Assignment 1 - User Guide</a>
+User Guide - <a href="https://codelabs-preview.appspot.com/?file_id=1WuXZUl3ZoBxxDY33n4CoS1PDx_Qhr2KuQ16byUmUeMc#8">Assignment 3 - User Guide</a>
 
 
 <h3> Description </h3>
