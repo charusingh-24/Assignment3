@@ -20,6 +20,9 @@ st.markdown(
 # from pages.Nexrad import nexrad_home
 # from streamlit_extras.switch_page_button import switch_page
 
+#current active username
+
+
 
 if 'login_status' not in st.session_state:
     st.session_state.login_status = False
@@ -45,19 +48,29 @@ if 'valid_user_flag' not in st.session_state:
 if 'logout_btn' not in st.session_state:
     st.session_state.logout_btn = False
 
+if 'active_user' not in st.session_state:
+    st.session_state.active_user = ""
+
+if 'access_token' not in st.session_state:
+    st.session_state.access_token = False
 
 valid_user_flag = False
 
-def validate_user_credentials(username, password):
-
-    url = 'http://api:8000/autheticate_user'
-    data = {
-        "un": username,
-        "pwd": password
-    }
-    response = requests.post(url=url, json=data)
-    valid_user_flag = response.json().get('matched')
-    return valid_user_flag
+# def validate_user_credentials(username, password):
+#
+#     # url = 'http://api:8000/autheticate_user'
+#     url = "http://localhost:8000/autheticate_user"
+#     data = {
+#         # 'email': email,
+#         "un": username,
+#         "pwd": password,
+#         # 'plan': plan
+#     }
+#     response = requests.post(url=url, json=data)
+#     st.markdown(response.json())
+#     valid_user_flag = response.json().get('matched')
+#     token = response.json().get('access_token')
+#     return valid_user_flag, token
 
 ###################################################################################
 # Login Form
@@ -100,7 +113,7 @@ def home_introduction():
 # Function for home page layout
 def home_page_layout(auth_session_state_flag):
     # st.markdown(session_state_flag)
-
+    token = ""
     # Checking any user is authorized / current active user Logged-In, if not it will show logout button
     if not auth_session_state_flag:
         with st.form(key="Login"):
@@ -113,14 +126,31 @@ def home_page_layout(auth_session_state_flag):
             # if username == "" or password == "": st.info("Please provide credentials")
             if login_status and username != "" and password != "":
                 # Validate user credentials by calling the api function passing username and password
-                valid_user_flag = validate_user_credentials(username, password)
+                # valid_user_flag, token = validate_user_credentials(username, password)
 
+                url = "http://127.0.0.1:8001/autheticate_user"
+                data = {
+                    # 'email': email,
+                    "un": username,
+                    "pwd": password,
+                    # 'plan': plan
+                }
+                response = requests.post(url=url, json=data)
+                st.markdown(response.json())
+                valid_user_flag = response.json().get('matched')
+                token = response.json().get('access_token')
+                st.markdown(f"Token --> {token}")
         # st.session_state["authenticated"] = False
 
         if username == "" or password == "":
             st.info("Please provide credentials")
         elif valid_user_flag:
+
+            st.markdown(token)
+            st.markdown("Success Login!")
+            # st.session_state.access_token = response.json()['access_token']
             st.session_state["authenticated"] = True
+            st.session_state.active_user = username
             st.success("Logged In - Active User")
             # placeholder.empty()
             # logout_btn_actions()
@@ -129,6 +159,7 @@ def home_page_layout(auth_session_state_flag):
             # login_status.disabled = False
         else:
             st.session_state["authenticated"] = False
+            st.session_state.active_user = ""
             st.error("Username or password is invalid")
 
     else:
@@ -140,6 +171,7 @@ def home_page_layout(auth_session_state_flag):
 
         if logout_btn:
             st.session_state.authenticated = False
+            st.session_state.active_user = ""
             # placeholder_logout.empty()
             # st.success("User Logged-OUT")
             home_page_layout(st.session_state.authenticated)
