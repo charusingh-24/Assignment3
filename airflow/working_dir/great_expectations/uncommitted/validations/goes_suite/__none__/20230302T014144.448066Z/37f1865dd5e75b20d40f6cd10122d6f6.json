@@ -1,0 +1,104 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "goes.csv",
+      "data_connector_name": "default_inferred_data_connector_name",
+      "datasource_name": "goes18_datasource"
+    },
+    "batch_markers": {
+      "ge_load_time": "20230302T064144.455017Z",
+      "pandas_data_fingerprint": "ff71245ac21d6453cece126afd54d91a"
+    },
+    "batch_spec": {
+      "path": "/Users/charusingh/Desktop/IS_Courses/Sem5/DAMG7245/Assignments/Assignment3/Assignment3/airflow/working_dir/great_expectations/../data/goes.csv"
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "goes.csv_goes_suite",
+    "expectation_suite_name": "goes_suite",
+    "great_expectations_version": "0.15.50",
+    "run_id": {
+      "run_name": null,
+      "run_time": "2023-03-02T01:41:44.448066+00:00"
+    },
+    "validation_id": null,
+    "validation_time": "20230302T064144.477750Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "batch_id": "37f1865dd5e75b20d40f6cd10122d6f6",
+          "max_value": 25271,
+          "min_value": 25271
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {},
+              "metric_name": "table.row_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 25271
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_columns_to_match_set",
+        "kwargs": {
+          "batch_id": "37f1865dd5e75b20d40f6cd10122d6f6",
+          "column_set": [
+            "hour",
+            "product",
+            "day",
+            "year",
+            "id"
+          ],
+          "exact_match": null
+        },
+        "meta": {
+          "profiler_details": {
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": [
+          "id",
+          "product",
+          "year",
+          "day",
+          "hour"
+        ]
+      },
+      "success": true
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 2,
+    "success_percent": 100.0,
+    "successful_expectations": 2,
+    "unsuccessful_expectations": 0
+  },
+  "success": true
+}

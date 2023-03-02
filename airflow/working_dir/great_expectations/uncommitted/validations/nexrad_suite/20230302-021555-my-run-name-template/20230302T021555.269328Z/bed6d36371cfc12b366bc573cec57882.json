@@ -1,0 +1,402 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "goes.csv",
+      "data_connector_name": "default_inferred_data_connector_name",
+      "datasource_name": "nexrad_datasource"
+    },
+    "batch_markers": {
+      "ge_load_time": "20230302T071555.275234Z",
+      "pandas_data_fingerprint": "ff71245ac21d6453cece126afd54d91a"
+    },
+    "batch_spec": {
+      "path": "/Users/charusingh/Desktop/IS_Courses/Sem5/DAMG7245/Assignments/Assignment3/Assignment3/airflow/working_dir/great_expectations/../data/goes.csv"
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "goes_ck_v1",
+    "expectation_suite_name": "nexrad_suite",
+    "great_expectations_version": "0.15.50",
+    "run_id": {
+      "run_name": "20230302-021555-my-run-name-template",
+      "run_time": "2023-03-02T02:15:55.269328+00:00"
+    },
+    "validation_id": null,
+    "validation_time": "20230302T071555.313254Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": "Error: The column \"month\" in BatchData does not exist.",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 555, in _process_direct_and_bundled_metric_computation_configurations\n    ] = metric_computation_configuration.metric_fn(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/metric_provider.py\", line 90, in inner_func\n    return metric_fn(*args, **kwargs)\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/map_metric_provider.py\", line 360, in inner_func\n    column_name = get_dbms_compatible_column_names(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 673, in get_dbms_compatible_column_names\n    _verify_column_names_exist_and_get_normalized_typed_column_names_map(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 752, in _verify_column_names_exist_and_get_normalized_typed_column_names_map\n    raise gx_exceptions.InvalidMetricAccessorDomainKwargsKeyError(\ngreat_expectations.exceptions.exceptions.InvalidMetricAccessorDomainKwargsKeyError: Error: The column \"month\" in BatchData does not exist.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/validator/validation_graph.py\", line 276, in _resolve\n    self._execution_engine.resolve_metrics(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 290, in resolve_metrics\n    return self._process_direct_and_bundled_metric_computation_configurations(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 559, in _process_direct_and_bundled_metric_computation_configurations\n    raise gx_exceptions.MetricResolutionError(\ngreat_expectations.exceptions.exceptions.MetricResolutionError: Error: The column \"month\" in BatchData does not exist.\n",
+        "raised_exception": true
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "month"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "month"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {},
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": "Error: The column \"month\" in BatchData does not exist.",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 555, in _process_direct_and_bundled_metric_computation_configurations\n    ] = metric_computation_configuration.metric_fn(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/metric_provider.py\", line 90, in inner_func\n    return metric_fn(*args, **kwargs)\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/map_metric_provider.py\", line 360, in inner_func\n    column_name = get_dbms_compatible_column_names(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 673, in get_dbms_compatible_column_names\n    _verify_column_names_exist_and_get_normalized_typed_column_names_map(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 752, in _verify_column_names_exist_and_get_normalized_typed_column_names_map\n    raise gx_exceptions.InvalidMetricAccessorDomainKwargsKeyError(\ngreat_expectations.exceptions.exceptions.InvalidMetricAccessorDomainKwargsKeyError: Error: The column \"month\" in BatchData does not exist.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/validator/validation_graph.py\", line 276, in _resolve\n    self._execution_engine.resolve_metrics(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 290, in resolve_metrics\n    return self._process_direct_and_bundled_metric_computation_configurations(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 559, in _process_direct_and_bundled_metric_computation_configurations\n    raise gx_exceptions.MetricResolutionError(\ngreat_expectations.exceptions.exceptions.MetricResolutionError: Error: The column \"month\" in BatchData does not exist.\n",
+        "raised_exception": true
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "month",
+          "max_value": 12,
+          "min_value": 1,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "month"
+                },
+                "metric_name": "column.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "month"
+                },
+                "metric_name": "column.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {},
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": "Error: The column \"month\" in BatchData does not exist.",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 555, in _process_direct_and_bundled_metric_computation_configurations\n    ] = metric_computation_configuration.metric_fn(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/metric_provider.py\", line 50, in inner_func\n    return metric_fn(*args, **kwargs)\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/column_aggregate_metric_provider.py\", line 77, in inner_func\n    column_name = get_dbms_compatible_column_names(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 673, in get_dbms_compatible_column_names\n    _verify_column_names_exist_and_get_normalized_typed_column_names_map(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 752, in _verify_column_names_exist_and_get_normalized_typed_column_names_map\n    raise gx_exceptions.InvalidMetricAccessorDomainKwargsKeyError(\ngreat_expectations.exceptions.exceptions.InvalidMetricAccessorDomainKwargsKeyError: Error: The column \"month\" in BatchData does not exist.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/validator/validation_graph.py\", line 276, in _resolve\n    self._execution_engine.resolve_metrics(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 290, in resolve_metrics\n    return self._process_direct_and_bundled_metric_computation_configurations(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 559, in _process_direct_and_bundled_metric_computation_configurations\n    raise gx_exceptions.MetricResolutionError(\ngreat_expectations.exceptions.exceptions.MetricResolutionError: Error: The column \"month\" in BatchData does not exist.\n",
+        "raised_exception": true
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_max_to_be_between",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "month",
+          "max_value": 12,
+          "min_value": 1,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "month"
+              },
+              "metric_name": "column.max",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {},
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": "Error: The column \"station\" in BatchData does not exist.",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 555, in _process_direct_and_bundled_metric_computation_configurations\n    ] = metric_computation_configuration.metric_fn(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/metric_provider.py\", line 90, in inner_func\n    return metric_fn(*args, **kwargs)\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/map_metric_provider.py\", line 360, in inner_func\n    column_name = get_dbms_compatible_column_names(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 673, in get_dbms_compatible_column_names\n    _verify_column_names_exist_and_get_normalized_typed_column_names_map(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/expectations/metrics/util.py\", line 752, in _verify_column_names_exist_and_get_normalized_typed_column_names_map\n    raise gx_exceptions.InvalidMetricAccessorDomainKwargsKeyError(\ngreat_expectations.exceptions.exceptions.InvalidMetricAccessorDomainKwargsKeyError: Error: The column \"station\" in BatchData does not exist.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/validator/validation_graph.py\", line 276, in _resolve\n    self._execution_engine.resolve_metrics(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 290, in resolve_metrics\n    return self._process_direct_and_bundled_metric_computation_configurations(\n  File \"/Users/charusingh/opt/anaconda3/lib/python3.9/site-packages/great_expectations/execution_engine/execution_engine.py\", line 559, in _process_direct_and_bundled_metric_computation_configurations\n    raise gx_exceptions.MetricResolutionError(\ngreat_expectations.exceptions.exceptions.MetricResolutionError: Error: The column \"station\" in BatchData does not exist.\n",
+        "raised_exception": true
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "station"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "station"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {},
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_row_count_to_be_between",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "max_value": 1388739,
+          "min_value": 1
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {},
+              "metric_name": "table.row_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "observed_value": 25271
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_table_columns_to_match_set",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column_set": [
+            "year",
+            "month",
+            "day",
+            "station"
+          ]
+        },
+        "meta": {
+          "profiler_details": {
+            "success_ratio": 1.0
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "details": {
+          "mismatched": {
+            "missing": [
+              "month",
+              "station"
+            ],
+            "unexpected": [
+              "hour",
+              "id",
+              "product"
+            ]
+          }
+        },
+        "observed_value": [
+          "day",
+          "hour",
+          "id",
+          "product",
+          "year"
+        ]
+      },
+      "success": false
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_not_be_null",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "day"
+        },
+        "meta": {
+          "profiler_details": {
+            "metric_configuration": {
+              "domain_kwargs": {
+                "column": "day"
+              },
+              "metric_name": "column_values.nonnull.unexpected_count",
+              "metric_value_kwargs": null
+            },
+            "num_batches": 1
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 25271,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "day",
+          "max_value": 365,
+          "min_value": 0,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "day"
+                },
+                "metric_name": "column.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "day"
+                },
+                "metric_name": "column.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 25271,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "bed6d36371cfc12b366bc573cec57882",
+          "column": "year",
+          "max_value": 2023,
+          "min_value": 1970,
+          "mostly": 1.0,
+          "strict_max": false,
+          "strict_min": false
+        },
+        "meta": {
+          "profiler_details": {
+            "column_max_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "year"
+                },
+                "metric_name": "column.max",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            },
+            "column_min_values_range_estimator": {
+              "metric_configuration": {
+                "domain_kwargs": {
+                  "column": "year"
+                },
+                "metric_name": "column.min",
+                "metric_value_kwargs": null
+              },
+              "num_batches": 1
+            }
+          }
+        }
+      },
+      "meta": {},
+      "result": {
+        "element_count": 25271,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 9,
+    "success_percent": 44.44444444444444,
+    "successful_expectations": 4,
+    "unsuccessful_expectations": 5
+  },
+  "success": false
+}

@@ -1,2 +1,6 @@
 venv_run
 env_arch
+airflow/logs
+airflow/working_dir/data
+.env_ge
+!.env
