@@ -1,0 +1,68 @@
+[2023-03-01T23:58:51.816+0000] {processor.py:153} INFO - Started process (PID=625) to work on /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:51.819+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/scrapper.py for tasks to queue
+[2023-03-01T23:58:51.826+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:58:51.825+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:51.880+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:58:51.845+0000] {dagbag.py:343} ERROR - Failed to import: /opt/airflow/dags/scrapper.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 339, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/scrapper.py", line 84
+    'year':
+          ^
+SyntaxError: unexpected EOF while parsing
+[2023-03-01T23:58:51.884+0000] {processor.py:755} WARNING - No viable dags retrieved from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:51.970+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/scrapper.py took 0.172 seconds
+[2023-03-01T23:58:54.188+0000] {processor.py:153} INFO - Started process (PID=626) to work on /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:54.202+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/scrapper.py for tasks to queue
+[2023-03-01T23:58:54.216+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:58:54.208+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:54.445+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:58:54.393+0000] {dagbag.py:343} ERROR - Failed to import: /opt/airflow/dags/scrapper.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 339, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/scrapper.py", line 84
+    'year':
+          ^
+SyntaxError: unexpected EOF while parsing
+[2023-03-01T23:58:54.451+0000] {processor.py:755} WARNING - No viable dags retrieved from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:58:54.502+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/scrapper.py took 0.349 seconds
+[2023-03-01T23:59:24.839+0000] {processor.py:153} INFO - Started process (PID=663) to work on /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:24.842+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/scrapper.py for tasks to queue
+[2023-03-01T23:59:24.845+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:59:24.844+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:24.858+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:59:24.853+0000] {dagbag.py:343} ERROR - Failed to import: /opt/airflow/dags/scrapper.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 339, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/scrapper.py", line 84
+    'year':
+          ^
+SyntaxError: unexpected EOF while parsing
+[2023-03-01T23:59:24.860+0000] {processor.py:755} WARNING - No viable dags retrieved from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:24.903+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/scrapper.py took 0.068 seconds
+[2023-03-01T23:59:41.510+0000] {processor.py:153} INFO - Started process (PID=676) to work on /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:41.557+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/scrapper.py for tasks to queue
+[2023-03-01T23:59:41.561+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:59:41.561+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:41.582+0000] {logging_mixin.py:137} INFO - [2023-03-01T23:59:41.574+0000] {dagbag.py:343} ERROR - Failed to import: /opt/airflow/dags/scrapper.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 339, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/scrapper.py", line 85
+    'month': [],
+          ^
+SyntaxError: invalid syntax
+[2023-03-01T23:59:41.586+0000] {processor.py:755} WARNING - No viable dags retrieved from /opt/airflow/dags/scrapper.py
+[2023-03-01T23:59:41.661+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/scrapper.py took 0.164 seconds

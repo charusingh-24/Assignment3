@@ -1,0 +1,14 @@
+[2023-03-02T00:21:17.843+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: metadata_scraper.scrape_goes_data scheduled__2023-02-27T00:00:00+00:00 [queued]>
+[2023-03-02T00:21:18.092+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: metadata_scraper.scrape_goes_data scheduled__2023-02-27T00:00:00+00:00 [queued]>
+[2023-03-02T00:21:18.097+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-03-02T00:21:18.104+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 1
+[2023-03-02T00:21:18.107+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-03-02T00:21:18.312+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): scrape_goes_data> on 2023-02-27 00:00:00+00:00
+[2023-03-02T00:21:18.497+0000] {standard_task_runner.py:55} INFO - Started process 1952 to run task
+[2023-03-02T00:21:19.311+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'metadata_scraper', 'scrape_goes_data', 'scheduled__2023-02-27T00:00:00+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/scrapper.py', '--cfg-path', '/tmp/tmpsg0eb7in']
+[2023-03-02T00:21:19.466+0000] {standard_task_runner.py:83} INFO - Job 7: Subtask scrape_goes_data
+[2023-03-02T00:21:27.021+0000] {task_command.py:388} INFO - Running <TaskInstance: metadata_scraper.scrape_goes_data scheduled__2023-02-27T00:00:00+00:00 [running]> on host 03892a27b5ab
+[2023-03-02T00:22:18.081+0000] {local_task_job.py:208} INFO - Task exited with return code Negsignal.SIGKILL
+[2023-03-02T00:22:21.526+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

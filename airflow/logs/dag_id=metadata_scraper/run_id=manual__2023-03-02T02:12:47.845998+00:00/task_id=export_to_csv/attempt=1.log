@@ -1,0 +1,23 @@
+[2023-03-02T02:14:55.321+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: metadata_scraper.export_to_csv manual__2023-03-02T02:12:47.845998+00:00 [queued]>
+[2023-03-02T02:14:55.333+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: metadata_scraper.export_to_csv manual__2023-03-02T02:12:47.845998+00:00 [queued]>
+[2023-03-02T02:14:55.334+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2023-03-02T02:14:55.336+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 1
+[2023-03-02T02:14:55.337+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2023-03-02T02:14:55.347+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): export_to_csv> on 2023-03-02 02:12:47.845998+00:00
+[2023-03-02T02:14:55.370+0000] {standard_task_runner.py:55} INFO - Started process 565 to run task
+[2023-03-02T02:14:55.379+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'metadata_scraper', 'export_to_csv', 'manual__2023-03-02T02:12:47.845998+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/scrapper.py', '--cfg-path', '/tmp/tmp360rlt80']
+[2023-03-02T02:14:55.384+0000] {standard_task_runner.py:83} INFO - Job 7: Subtask export_to_csv
+[2023-03-02T02:14:55.512+0000] {task_command.py:388} INFO - Running <TaskInstance: metadata_scraper.export_to_csv manual__2023-03-02T02:12:47.845998+00:00 [running]> on host 5d83bf79023b
+[2023-03-02T02:14:55.584+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Charu Singh
+AIRFLOW_CTX_DAG_ID=metadata_scraper
+AIRFLOW_CTX_TASK_ID=export_to_csv
+AIRFLOW_CTX_EXECUTION_DATE=2023-03-02T02:12:47.845998+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2023-03-02T02:12:47.845998+00:00
+[2023-03-02T02:14:55.767+0000] {python.py:177} INFO - Done. Returned value was: None
+[2023-03-02T02:14:55.779+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=metadata_scraper, task_id=export_to_csv, execution_date=20230302T021247, start_date=20230302T021455, end_date=20230302T021455
+[2023-03-02T02:14:55.833+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2023-03-02T02:14:55.850+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check
