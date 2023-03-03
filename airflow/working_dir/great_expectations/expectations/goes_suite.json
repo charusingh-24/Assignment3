@@ -5,7 +5,7 @@
     {
       "expectation_type": "expect_table_row_count_to_be_between",
       "kwargs": {
-        "max_value": 10000,
+        "max_value": 10000000,
         "min_value": 1
       },
       "meta": {
@@ -23,7 +23,8 @@
       "expectation_type": "expect_table_columns_to_match_set",
       "kwargs": {
         "column_set": [
-          "index",
+          "id",
+          "product",
           "year",
           "day",
           "hour"
@@ -173,7 +174,7 @@
       "kwargs": {
         "column": "day",
         "max_value": 365,
-        "min_value": 0,
+        "min_value": 1,
         "mostly": 1.0,
         "strict_max": false,
         "strict_min": false

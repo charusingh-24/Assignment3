@@ -23,6 +23,7 @@
       "expectation_type": "expect_table_columns_to_match_set",
       "kwargs": {
         "column_set": [
+          "id",
           "year",
           "month",
           "day",
@@ -223,6 +224,16 @@
       {
         "citation_date": "2023-03-02T06:43:12.377702Z",
         "comment": "Created by effective Rule-Based Profiler of OnboardingDataAssistant with the configuration included.\n"
+      },
+      {
+        "batch_request": {
+          "data_asset_name": "nexrad.csv",
+          "data_connector_name": "default_inferred_data_connector_name",
+          "datasource_name": "nexrad_datasource",
+          "limit": 1000
+        },
+        "citation_date": "2023-03-03T02:04:58.089067Z",
+        "comment": "Created suite added via CLI"
       }
     ],
     "great_expectations_version": "0.15.50"

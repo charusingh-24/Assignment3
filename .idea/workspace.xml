@@ -5,9 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="880ce83e-5d15-4c76-8777-2fd605297bd7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_0.stat" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_0.stat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_16384.stat" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_16384.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/logs/dag_processor_manager/dag_processor_manager.log" beforeDir="false" afterPath="$PROJECT_DIR$/airflow/logs/dag_processor_manager/dag_processor_manager.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/logs/scheduler/2023-03-02/TEST.py.log" beforeDir="false" afterPath="$PROJECT_DIR$/airflow/logs/scheduler/2023-03-02/TEST.py.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airflow/logs/scheduler/2023-03-02/scrapper.py.log" beforeDir="false" afterPath="$PROJECT_DIR$/airflow/logs/scheduler/2023-03-02/scrapper.py.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/base/16384/pg_internal.init" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/global/pg_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/global/pg_internal.init" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_stat/db_0.stat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_stat/db_16384.stat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_stat/global.stat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_0.stat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_stat_tmp/db_16384.stat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/db_data/pg_stat_tmp/global.stat" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/pg_stat_tmp/global.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/pg_wal/000000010000000000000004" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/pg_wal/000000010000000000000004" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_data/postmaster.pid" beforeDir="false" afterPath="$PROJECT_DIR$/db_data/postmaster.pid" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,16 +44,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/Users/charusingh/Desktop/IS_Courses/Sem5/DAMG7245/Assignments/Assignment3/Assignment3/airflow/working_dir/data",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/charusingh/Desktop/IS_Courses/Sem5/DAMG7245/Assignments/Assignment3/Assignment3/airflow/working_dir/data&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/airflow/working_dir/data" />

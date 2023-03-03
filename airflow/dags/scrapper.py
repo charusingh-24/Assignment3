@@ -7,6 +7,9 @@ import psycopg2
 from airflow.models import DAG
 from airflow.operators.python import PythonOperator
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # from great_expectations_provider.operators.great_expectations import GreatExpectationsOperator
 # from great_expectations.data_context.types.base import (
@@ -18,9 +21,17 @@ from sqlalchemy import create_engine
 BASE_URL = os.getenv("DB_URL", "postgresql://root:root@db:5432/noaa")
 base_path = "/opt/airflow/working_dir"
 ge_root_dir = os.path.join(base_path, "great_expectations")
+
 goes_bucket = "noaa-goes18"
 nexrad_bucket = "noaa-nexrad-level2"
 des_bucket = "damg7245-ass1"
+
+aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+# Initialize Connection
+s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_access_key_id,
+                  aws_secret_access_key=aws_secret_access_key)
 
 # Define DAG arguments
 default_args = {
@@ -28,16 +39,6 @@ default_args = {
     'depends_on_past': False,
     'start_date': datetime.today()
 }
-# aws_access_key_id = os.environ.get('AWS_ACCESS_KEY')
-# aws_secret_access_key = os.environ.get('AWS_SECRET_KEY')
-
-
-aws_access_key_id = 'AKIAVDK4IUCRNV5UP46G'
-aws_secret_access_key = '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'
-
-s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_access_key_id,
-                  aws_secret_access_key=aws_secret_access_key)
-
 
 def GOES_scrap_load():
     goes18_dict = {
