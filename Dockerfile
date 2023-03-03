@@ -1,16 +1,16 @@
 FROM python:3.9.12
 
 
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 
-WORKDIR /app
-ADD requirements.txt /app/
+# WORKDIR /app
+# ADD requirements.txt /app/
 
-RUN pip install -r requirements.txt
+# RUN pip install -r requirements.txt
 
-ADD airflow /app/
+# ADD airflow /app/
 
-RUN pip install -r requirements.txt
+# RUN pip install -r requirements.txt
 #
 #COPY ./Login.py ./requirements.txt  /app/
 #
@@ -31,10 +31,10 @@ RUN pip install -r requirements.txt
 
 #CMD ["streamlit", "run", "Login.py","--server.port","8091"]
 # Install Airflow and its dependencies
-RUN pip install apache-airflow
+# RUN pip install apache-airflow
 
-# Initialize the Airflow database
-EXPOSE 8000
+# # Initialize the Airflow database
+# EXPOSE 8000
 
-# Start the Airflow web server
-CMD exec gunicorn --bind :$8000 --workers 1 --threads 8 --timeout 0 main:app
+# # Start the Airflow web server
+# CMD exec gunicorn --bind :$8000 --workers 1 --threads 8 --timeout 0 main:app

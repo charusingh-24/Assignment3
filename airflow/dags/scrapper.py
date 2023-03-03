@@ -11,11 +11,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# from great_expectations_provider.operators.great_expectations import GreatExpectationsOperator
-# from great_expectations.data_context.types.base import (
-#     CheckpointConfig,
-#     DataContextConfig,
-# )
+from great_expectations_provider.operators.great_expectations import GreatExpectationsOperator
+from great_expectations.data_context.types.base import (
+    CheckpointConfig,
+    DataContextConfig,
+)
 
 
 BASE_URL = os.getenv("DB_URL", "postgresql://root:root@db:5432/noaa")
@@ -26,11 +26,18 @@ goes_bucket = "noaa-goes18"
 nexrad_bucket = "noaa-nexrad-level2"
 des_bucket = "damg7245-ass1"
 
-aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+aws_access_key_id = 'AKIAVDK4IUCRNV5UP46G'
+aws_secret_access_key='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'
+
+# aws_access_key_id = os.environ.get('AWS_ACCESS_KEY')
+# aws_secret_access_key = os.environ.get('AWS_SECRET_KEY')
 
 # Initialize Connection
-s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_access_key_id,
+# s3 = boto3.client('s3', region_name='us-east-1',
+#                   aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
+#                   aws_secret_access_key=os.environ.get('AWS_SECRET_KEY'))
+s3 = boto3.client('s3', region_name='us-east-1',
+                  aws_access_key_id=aws_access_key_id,
                   aws_secret_access_key=aws_secret_access_key)
 
 # Define DAG arguments
@@ -206,26 +213,20 @@ export_csv = PythonOperator(
     dag=scrapper_dag
 )
 
-# ge_dag = DAG(
-#     'metadata_scraper',
-#     default_args=default_args,
-#     description='Run Great Expectations',
-#     schedule_interval=None
-# )
-# ge_task1 = GreatExpectationsOperator(
-#     task_id="goes18_run_data_validation",
-#     data_context_root_dir=ge_root_dir,
-#     checkpoint_name="goes_ck_v1",
-#     fail_task_on_validation_failure=False,
-#     dag=ge_dag
-# )
-#
-# ge_task2 = GreatExpectationsOperator(
-#     task_id="nexrad_run_data_validation",
-#     data_context_root_dir=ge_root_dir,
-#     checkpoint_name="nexrad_ck_v1",
-#     dag=ge_dag
-# )
+ge_task1 = GreatExpectationsOperator(
+    task_id="goes18_run_data_validation",
+    data_context_root_dir=ge_root_dir,
+    checkpoint_name="goes_ck_v1",
+    fail_task_on_validation_failure=False,
+    dag=scrapper_dag
+)
 
-(scrape_goes, scrape_nexrad, fetch_nexrad_stations) >> export_csv
-# (scrape_goes, scrape_nexrad) >> export_csv #>> (ge_task1, ge_task2)
+ge_task2 = GreatExpectationsOperator(
+    task_id="nexrad_run_data_validation",
+    data_context_root_dir=ge_root_dir,
+    checkpoint_name="nexrad_ck_v1",
+    dag=scrapper_dag
+)
+
+# (scrape_goes, scrape_nexrad, fetch_nexrad_stations) >> export_csv
+(scrape_goes, scrape_nexrad) >> export_csv >> (ge_task1, ge_task2)
